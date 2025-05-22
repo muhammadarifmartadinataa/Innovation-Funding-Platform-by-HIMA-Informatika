@@ -13,8 +13,8 @@ Backend ini dibuat dengan Node.js + Prisma ORM menggunakan database relasional M
 - git clone https://github.com/muhammadarifmartadinataa/Innovation-Funding-Platform-by-HIMA-Informatika.git
 - cd backend
 - Buat file .env di root folder backend/, lalu isi seperti berikut
-  a) DATABASE_URL="mysql://root:@password@localhost:3306/db_innovation_funding_hima_informatika"
-  b) JWT_SECRET="rahasia_anda_disini"
+1. DATABASE_URL="mysql://root:@password@localhost:3306/db_innovation_funding_hima_informatika"
+2. JWT_SECRET="rahasia_anda_disini"
 - NPM Install
 - npx prisma studi (ditab berbeda)
 - npx prisma generate
