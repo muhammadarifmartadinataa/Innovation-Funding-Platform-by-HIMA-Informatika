@@ -1,1 +1,1 @@
-# Crowfunding-HIMA-Informatika-UTI
+# Innovation-Funding-Platform-by-HIMA-Informatika
