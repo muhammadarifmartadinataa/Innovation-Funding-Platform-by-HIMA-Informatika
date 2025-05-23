@@ -1,4 +1,4 @@
-'use client'  // wajib untuk komponen React client side
+'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -24,10 +24,7 @@ export default function AdminLogin() {
 
       if (!res.ok) throw new Error(data.message || 'Login gagal')
 
-      // Simpan token ke localStorage
       localStorage.setItem('token', data.token)
-
-      // Redirect ke halaman dashboard admin
       router.push('/admin/dashboard')
     } catch (err: any) {
       setError(err.message)
