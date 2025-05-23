@@ -26,6 +26,8 @@ export default function UserList() {
             <div>
               <h2 className="text-lg font-semibold text-gray-800">{user.name}</h2>
               <p className="text-sm text-gray-500">{user.email}</p>
+              <p className="text-sm text-gray-500">{user.occupation}</p>
+
               <span className="inline-block mt-2 px-3 py-1 text-xs font-medium bg-blue-50 text-blue-600 rounded-full">
                 {user.role}
               </span>
