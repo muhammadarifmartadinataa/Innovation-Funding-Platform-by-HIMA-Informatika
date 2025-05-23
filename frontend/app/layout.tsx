@@ -23,11 +23,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="valentine">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* area header */}
+        
+
+        {/* area content */}
+        <section className="mb-10">
+          {children}
+        </section>
+
+        {/* area foother */}
+        <footer className="text-center mb-5">
+          Copyright &copy;2025 - HIMA  Informatika
+        </footer>
       </body>
     </html>
   );
