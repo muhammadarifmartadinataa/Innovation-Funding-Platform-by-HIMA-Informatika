@@ -8,32 +8,54 @@ const prisma = new PrismaClient();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, password, occupation, role } = body;
+    const { name, email, password, occupation } = body;
 
-    if (!name || !email || !password || !occupation || !role) {
-      return NextResponse.json(errorResponse("Semua field wajib diisi", 400));
+    if (!name || !email || !password || !occupation) {
+      return NextResponse.json(
+        errorResponse("Semua field wajib diisi", 400),
+        { status: 400 }
+      );
     }
 
-    const existingUser = await prisma.user.findUnique({ where: { email } });
+    // Cek apakah email sudah terdaftar
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
     if (existingUser) {
-      return NextResponse.json(errorResponse("Email sudah terdaftar", 400));
+      return NextResponse.json(
+        errorResponse("Email sudah terdaftar", 409),
+        { status: 409 }
+      );
     }
 
-    const password_hash = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         name,
         email,
         occupation,
-        password_hash,
-        role,
+        password_hash: hashedPassword,
+        role: "user", // Default role
       },
     });
 
-    return NextResponse.json(successResponse("Registrasi berhasil", user), { status: 201 });
+    return NextResponse.json(
+      successResponse("Registrasi berhasil", {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        occupation: newUser.occupation,
+        role: newUser.role,
+      }),
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Register error:", error);
-    return NextResponse.json(errorResponse("Server error", 500));
+    return NextResponse.json(
+      errorResponse("Terjadi kesalahan server", 500),
+      { status: 500 }
+    );
   }
 }
