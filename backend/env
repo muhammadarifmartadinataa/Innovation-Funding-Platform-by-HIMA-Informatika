@@ -1,4 +1,0 @@
-
-DATABASE_URL="mysql://root:@rif123@localhost:3306/db_innovation_funding_hima_informatika"
-JWT_SECRET="1Novat!ionFund1ng"
-JWT_EXPIRES_IN="1d"
