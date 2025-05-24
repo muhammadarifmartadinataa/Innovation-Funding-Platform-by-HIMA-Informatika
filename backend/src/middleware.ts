@@ -1,23 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
-export function middleware(request: NextRequest) {
-  const token = request.headers.get('Authorization')?.replace('Bearer ', '');
+export function middleware(req: NextRequest) {
+  const token = req.headers.get("Authorization")?.replace("Bearer ", "");
 
   if (!token) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ message: "Unauthorized - token missing" }, { status: 401 });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    // bisa juga set data ke request.nextUrl.searchParams atau cookies
+    // Bisa tambahkan informasi user di header jika ingin
     return NextResponse.next();
   } catch (error) {
-    return NextResponse.json({ message: 'Token tidak valid' }, { status: 403 });
+    return NextResponse.json({ message: "Unauthorized - token invalid" }, { status: 403 });
   }
 }
 
-// Tentukan route mana yang ingin diamankan
+// Tentukan rute yang butuh proteksi
 export const config = {
-  matcher: ["/api/protected/:path*"], // sesuaikan sesuai kebutuhan
+  matcher: ["/api/protected/:path*"],
 };
