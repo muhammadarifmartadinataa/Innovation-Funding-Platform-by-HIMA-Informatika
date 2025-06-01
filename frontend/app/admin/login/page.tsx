@@ -32,7 +32,7 @@ export default function AdminLogin() {
   }
 
   return (
-    <main className="flex justify-center items-center min-h-screen bg-gray-100">
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-indigo-600">
       <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
 
