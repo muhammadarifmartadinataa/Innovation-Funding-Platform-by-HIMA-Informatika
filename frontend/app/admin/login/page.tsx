@@ -33,8 +33,8 @@ export default function AdminLogin() {
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-indigo-600">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-        <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
+      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md animate-fadeIn">
+        <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">Admin Login</h1>
 
         {error && <p className="mb-3 text-red-600">{error}</p>}
 
@@ -62,7 +62,7 @@ export default function AdminLogin() {
         >
           Login
         </button>
-      </form>
+      </div>
     </main>
   )
 }
