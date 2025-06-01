@@ -71,6 +71,26 @@ export default function AuthPage() {
                 {error && <p className="mb-4 text-red-600">{error}</p>}
 
                 <form onSubmit={isRegistering ? handleRegister : handleLogin} className="space-y-4">
+                    {isRegistering && (
+                        <>
+                            <input
+                                type="text"
+                                placeholder="Nama Lengkap"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Pekerjaan"
+                                value={occupation}
+                                onChange={(e) => setOccupation(e.target.value)}
+                                required
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                            />
+                        </>
+                    )}
 
                     <input
                         type="email"
