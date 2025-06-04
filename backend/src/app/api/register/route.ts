@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, password, occupation } = body;
+    const { name, email, password, occupation, avatar } = body;
 
     if (!name || !email || !password || !occupation) {
       return NextResponse.json(
@@ -17,11 +17,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Cek apakah email sudah terdaftar
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
-
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return NextResponse.json(
         errorResponse("Email sudah terdaftar", 409),
@@ -38,6 +34,7 @@ export async function POST(req: NextRequest) {
         occupation,
         password_hash: hashedPassword,
         role: "user", // Default role
+        avatar_file_name: avatar || "user.png", // Jika avatar tidak dikirim, pakai "user.png"
       },
     });
 
@@ -48,6 +45,7 @@ export async function POST(req: NextRequest) {
         email: newUser.email,
         occupation: newUser.occupation,
         role: newUser.role,
+        avatar: `/uploads/${newUser.avatar_file_name}`, // contoh path akses avatar
       }),
       { status: 201 }
     );
@@ -59,3 +57,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
