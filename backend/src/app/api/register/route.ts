@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
         occupation,
         password_hash: hashedPassword,
         role: "user", // Default role
+        avatar_file_name: "user.png", // Avatar default dari public/user.png
       },
     });
 
@@ -48,6 +49,7 @@ export async function POST(req: NextRequest) {
         email: newUser.email,
         occupation: newUser.occupation,
         role: newUser.role,
+        avatar: `/user.png`, // Path akses frontend
       }),
       { status: 201 }
     );
