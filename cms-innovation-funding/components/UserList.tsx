@@ -28,6 +28,10 @@ export default function UserList() {
             <Users className="w-5 h-5" />
             Users
           </a>
+          <a href="#" className="flex items-center gap-2 text-sm font-medium hover:text-blue-600">
+            <Settings className="w-5 h-5" />
+            Settings
+          </a>
 
         </nav>
         <div className="mt-auto pt-10 border-t text-xs text-gray-400">
