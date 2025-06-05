@@ -29,4 +29,31 @@ export default function Register() {
             setError("Password dan konfirmasi password tidak sama");
             return;
         }
-    }}
+
+        // request ke API
+        setLoading(true);
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, password, occupation, role }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                setError(data.message || "Registrasi gagal");
+            } else {
+                setSuccessMsg("Registrasi berhasil, silakan login");
+
+                // Redirect Setelah Sukses 
+                setTimeout(() => router.push("/login"), 2000);
+            }
+        } catch {
+            setError("Terjadi kesalahan jaringan");
+        } finally {
+            setLoading(false);
+        }
+
+    }
+}
