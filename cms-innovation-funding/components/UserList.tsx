@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { UserCircle2, Home } from 'lucide-react';
+import { UserCircle2, Home, Users } from 'lucide-react';
 
 export default function UserList() {
   const [users, setUsers] = useState<any[]>([]);
@@ -24,7 +24,11 @@ export default function UserList() {
             <Home className="w-5 h-5" />
             Dashboard
           </a>
-          {/* Tambahkan menu lain di sini jika perlu */}
+          <a href="#" className="flex items-center gap-2 text-sm font-medium text-blue-600">
+            <Users className="w-5 h-5" />
+            Users
+          </a>
+
         </nav>
         <div className="mt-auto pt-10 border-t text-xs text-gray-400">
           © 2025 MyCMS
