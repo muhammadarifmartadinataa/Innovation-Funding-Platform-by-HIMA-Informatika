@@ -1,62 +1,60 @@
-'use client';
+'use client'; // Komponen client-side
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+// Komponen utama Register
 export default function Register() {
-    const router = useRouter();
+  const router = useRouter();
 
-    //   state form
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [occupation, setOccupation] = useState("");
-    const [role, setRole] = useState("user");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  // State untuk input form dan feedback UI
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [role, setRole] = useState("user");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    // state UI
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-    async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        setError(null);
-        setSuccessMsg(null);
+  // Fungsi untuk submit form registrasi
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSuccessMsg(null);
 
-        // Validasi Password
-        if (password !== confirmPassword) {
-            setError("Password dan konfirmasi password tidak sama");
-            return;
-        }
+    if (password !== confirmPassword) {
+      setError("Password dan konfirmasi password tidak sama");
+      return;
+    }
 
-        // request ke API
-        setLoading(true);
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password, occupation, role }),
-            });
+    setLoading(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, occupation, role }),
+      });
 
-            const data = await res.json();
+      const data = await res.json();
 
-            if (!res.ok) {
-                setError(data.message || "Registrasi gagal");
-            } else {
-                setSuccessMsg("Registrasi berhasil, silakan login");
+      if (!res.ok) {
+        setError(data.message || "Registrasi gagal");
+      } else {
+        setSuccessMsg("Registrasi berhasil, silakan login");
+        setTimeout(() => router.push("/login"), 2000);
+      }
+    } catch {
+      setError("Terjadi kesalahan jaringan");
+    } finally {
+      setLoading(false);
+    }
+  }
 
-                // Redirect Setelah Sukses 
-                setTimeout(() => router.push("/login"), 2000);
-            }
-        } catch {
-            setError("Terjadi kesalahan jaringan");
-        } finally {
-            setLoading(false);
-        }
-
-        // UI Form
-     return (
+  // Render form register
+  return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <form
         onSubmit={handleSubmit}
@@ -67,8 +65,10 @@ export default function Register() {
         {error && <p className="mb-4 text-red-500 text-center">{error}</p>}
         {successMsg && <p className="mb-4 text-green-600 text-center">{successMsg}</p>}
 
-        {/* Input Fields  */}
-        <label className="block mb-2 font-medium" htmlFor="name">Nama Lengkap</label>
+        {/* Input nama */}
+        <label className="block mb-2 font-medium" htmlFor="name">
+          Nama Lengkap
+        </label>
         <input
           id="name"
           type="text"
@@ -78,7 +78,10 @@ export default function Register() {
           required
         />
 
-        <label className="block mb-2 font-medium" htmlFor="email">Email</label>
+        {/* Input email */}
+        <label className="block mb-2 font-medium" htmlFor="email">
+          Email
+        </label>
         <input
           id="email"
           type="email"
@@ -88,7 +91,10 @@ export default function Register() {
           required
         />
 
-        <label className="block mb-2 font-medium" htmlFor="occupation">Pekerjaan (opsional)</label>
+        {/* Input pekerjaan */}
+        <label className="block mb-2 font-medium" htmlFor="occupation">
+          Pekerjaan (opsional)
+        </label>
         <input
           id="occupation"
           type="text"
@@ -97,7 +103,10 @@ export default function Register() {
           onChange={(e) => setOccupation(e.target.value)}
         />
 
-        <label className="block mb-2 font-medium" htmlFor="role">Role</label>
+        {/* Pilihan role */}
+        <label className="block mb-2 font-medium" htmlFor="role">
+          Role
+        </label>
         <select
           id="role"
           className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
@@ -108,7 +117,10 @@ export default function Register() {
           <option value="admin">Admin</option>
         </select>
 
-        <label className="block mb-2 font-medium" htmlFor="password">Password</label>
+        {/* Input password */}
+        <label className="block mb-2 font-medium" htmlFor="password">
+          Password
+        </label>
         <input
           id="password"
           type="password"
@@ -118,7 +130,10 @@ export default function Register() {
           required
         />
 
-        <label className="block mb-2 font-medium" htmlFor="confirmPassword">Konfirmasi Password</label>
+        {/* Input konfirmasi password */}
+        <label className="block mb-2 font-medium" htmlFor="confirmPassword">
+          Konfirmasi Password
+        </label>
         <input
           id="confirmPassword"
           type="password"
@@ -128,6 +143,7 @@ export default function Register() {
           required
         />
 
+        {/* Tombol submit */}
         <button
           type="submit"
           disabled={loading}
@@ -138,4 +154,4 @@ export default function Register() {
       </form>
     </div>
   );
-}}
+}
