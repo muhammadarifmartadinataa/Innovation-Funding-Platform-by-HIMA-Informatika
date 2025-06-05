@@ -34,7 +34,7 @@ export default function Login() {
       }
     } catch (err) {
       setError("Terjadi kesalahan jaringan");
-    } fina lly {
+    } finally {
       setLoading(false);
     }
   }
