@@ -13,4 +13,9 @@ export default function Register() {
     const [role, setRole] = useState("user");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    // state UI
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [successMsg, setSuccessMsg] = useState<string | null>(null);
 }
