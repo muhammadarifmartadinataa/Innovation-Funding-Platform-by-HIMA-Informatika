@@ -1,15 +1,56 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { UserCircle2, Home, Users } from 'lucide-react';
+import { UserCircle2, Home, Users, Settings } from 'lucide-react';
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  occupation: string;
+  role: string;
+};
+
+type ApiResponse = {
+  message: string;
+  status: number;
+  data: {
+    users: User[];
+    page: number;
+    pageSize: number;
+    totalPages: number;
+    totalUsers: number;
+  };
+};
 
 export default function UserList() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/user')
-      .then((res) => res.json())
-      .then(setUsers);
+    async function fetchUsers() {
+      setLoading(true);
+      setError(null);
+      try {
+const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/users`);
+const data: ApiResponse = await res.json();
+console.log("API response:", data);
+        if (!res.ok) {
+          throw new Error(data.message || 'Gagal ambil data user');
+        }
+
+        setUsers(data.data.users);
+      } catch (err: any) {
+        setError(err.message || 'Terjadi kesalahan');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUsers();
   }, []);
+
+  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -17,10 +58,7 @@ export default function UserList() {
       <aside className="w-64 bg-white shadow-md border-r border-gray-200 flex flex-col p-6">
         <h2 className="text-2xl font-bold text-blue-600 mb-10">📊 MyCMS</h2>
         <nav className="flex flex-col gap-4 text-gray-700">
-          <a
-            href="#"
-            className="flex items-center gap-2 text-sm font-medium hover:text-blue-600"
-          >
+          <a href="#" className="flex items-center gap-2 text-sm font-medium hover:text-blue-600">
             <Home className="w-5 h-5" />
             Dashboard
           </a>
@@ -32,11 +70,8 @@ export default function UserList() {
             <Settings className="w-5 h-5" />
             Settings
           </a>
-
         </nav>
-        <div className="mt-auto pt-10 border-t text-xs text-gray-400">
-          © 2025 MyCMS
-        </div>
+        <div className="mt-auto pt-10 border-t text-xs text-gray-400">© 2025 MyCMS</div>
       </aside>
 
       {/* Main content */}
