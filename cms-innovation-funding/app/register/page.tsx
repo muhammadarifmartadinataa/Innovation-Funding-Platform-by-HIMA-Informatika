@@ -18,4 +18,15 @@ export default function Register() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
-}
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        setError(null);
+        setSuccessMsg(null);
+
+        // Validasi Password
+        if (password !== confirmPassword) {
+            setError("Password dan konfirmasi password tidak sama");
+            return;
+        }
+    }}
