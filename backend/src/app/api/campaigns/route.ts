@@ -4,7 +4,7 @@ import { errorResponse, successResponse } from "../../utils/response";
 import { verify } from "jsonwebtoken";
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET!; // jangan lupa set di .env
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 function getUserIdFromToken(req: NextRequest): number | null {
   const authHeader = req.headers.get("authorization");
@@ -54,11 +54,20 @@ export async function POST(req: NextRequest) {
         slug,
         backer_count: 0,
       },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            occupation: true,
+          },
+        },
+      },
     });
 
     const responseData = {
       id: newCampaign.id,
-      user_id: newCampaign.user_id,
       name: newCampaign.name,
       short_description: newCampaign.short_description,
       description: newCampaign.description,
@@ -67,6 +76,7 @@ export async function POST(req: NextRequest) {
       perks: newCampaign.perks,
       slug: newCampaign.slug,
       backer_count: newCampaign.backer_count,
+      user: newCampaign.user, // ini akan berisi { id, name, email, occupation }
     };
 
     return NextResponse.json(successResponse("Campaign berhasil dibuat", responseData), { status: 201 });
