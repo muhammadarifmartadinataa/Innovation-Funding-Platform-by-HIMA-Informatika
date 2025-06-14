@@ -56,7 +56,14 @@ export default function CampaignList() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Campaign Table</h1>
+      {/* Header dengan ikon */}
+      <div className="flex flex-col items-center mb-4">
+        <div className="bg-green-100 p-3 rounded-full mb-2">
+          <FileText className="h-8 w-8 text-green-600" />
+        </div>
+        <h1 className="text-2xl font-bold text-gray-700">Campaign Table</h1>
+      </div>
+
       <div className="overflow-auto rounded-lg shadow">
         <table className="w-full text-sm text-center text-gray-600">
           <thead className="text-xs text-gray-500 uppercase bg-gray-100">
