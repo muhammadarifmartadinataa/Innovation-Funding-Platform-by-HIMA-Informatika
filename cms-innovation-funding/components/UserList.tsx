@@ -75,10 +75,11 @@ export default function Dashboard() {
           <table className="w-full text-sm text-left text-gray-600">
             <thead className="text-xs text-gray-500 uppercase bg-gray-100">
               <tr>
-                <th scope="col" className="px-6 py-3">username</th>
-                <th scope="col" className="px-6 py-3">Function</th>
-                <th scope="col" className="px-6 py-3">Status</th>
-                <th scope="col" className="px-6 py-3">Employed</th>
+                <th scope="col" className="px-6 py-3">Profile</th>
+                <th scope="col" className="px-6 py-3">Username</th>
+                <th scope="col" className="px-6 py-3">Email</th>
+                <th scope="col" className="px-6 py-3">Occupation</th>
+                <th scope="col" className="px-6 py-3">Role</th>
                 <th scope="col" className="px-6 py-3">Action</th>
               </tr>
             </thead>
@@ -89,22 +90,23 @@ export default function Dashboard() {
                     <div className="bg-blue-100 p-2 rounded-full">
                       <UserCircle2 className="h-6 w-6 text-blue-600" />
                     </div>
-                    <div>
+                  </td>
+                  <td className="items-center">
                       <div className="font-medium text-gray-800">{user.name}</div>
-                      <div className="text-gray-500 text-sm">{user.email}</div>
-                    </div>
+                  </td>
+                   <td>
+                      <div className="font-medium text-gray-800">{user.email}</div>
+                  </td>
+                   <td>
+                      <div className="font-medium text-gray-800">{user.occupation}</div>
+                  </td>
+                  <td>
+                      <div className="font-medium text-gray-800">{user.role}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-800">{user.occupation}</div>
-                    <div className="text-xs text-gray-500">{user.role}</div>
+                     <div className="font-medium text-gray-800">Edit</div>
+                      <div className="font-medium text-gray-800">Hapus</div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gray-200 text-gray-600">
-                      OFFLINE
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">-</td>
-                  <td className="px-6 py-4 text-sm text-blue-600 hover:underline cursor-pointer">Edit</td>
                 </tr>
               ))}
             </tbody>
