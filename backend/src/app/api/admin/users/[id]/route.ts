@@ -64,7 +64,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const userId = parseInt(params.id, 10);
     const body = await req.json();
 
-    // Cek apakah user ada
     const user = await prisma.user.findUnique({
       where: { id: userId },
     });
@@ -73,15 +72,18 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       return NextResponse.json(errorResponse("User tidak ditemukan", 404), { status: 404 });
     }
 
-    // Siapkan data yang akan diupdate
+    // Siapkan data yang akan diupdate hanya jika disediakan di body
     const dataToUpdate: any = {};
-
     if (body.name) dataToUpdate.name = body.name;
     if (body.email) dataToUpdate.email = body.email;
     if (body.occupation) dataToUpdate.occupation = body.occupation;
-    if (body.role) dataToUpdate.role = body.role; // Tidak wajib
+    if (body.role) dataToUpdate.role = body.role;
 
-    // Update user
+    // Cek jika tidak ada field yang diberikan
+    if (Object.keys(dataToUpdate).length === 0) {
+      return NextResponse.json(errorResponse("Tidak ada data yang diubah", 400), { status: 400 });
+    }
+
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: dataToUpdate,
@@ -101,4 +103,5 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json(errorResponse("Terjadi kesalahan server", 500), { status: 500 });
   }
 }
+
 
