@@ -55,4 +55,13 @@ export default function CampaignList() {
     if (loading) return <p className="text-center mt-20">Loading...</p>;
   if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;
 
+  
+
+  return (
+    <>
+      <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Campaign Table</h1>
+      <div className="overflow-auto rounded-lg shadow">
+        <table className="w-full text-sm text-center text-gray-600">
+)
+
 }
