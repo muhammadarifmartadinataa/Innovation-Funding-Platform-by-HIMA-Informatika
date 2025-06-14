@@ -121,7 +121,7 @@ export default function AuthPage() {
                     {isRegistering ? 'Sudah punya akun?' : 'Belum punya akun?'}{' '}
                     <button
                         onClick={() => setIsRegistering(!isRegistering)}
-                        className="text-red-900 font-semibold hover:underline"
+                        className="text-red-900  font-semibold hover:underline"
                     >
                         {isRegistering ? 'Login di sini' : 'Register di sini'}
                     </button>
