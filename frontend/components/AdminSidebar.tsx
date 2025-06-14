@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { LogOut } from 'lucide-reac'
+import { LogOut } from 'lucide-react'
 
 const navItems = [
   { label: 'Dashboard', href: '/admin/dashboard' },
