@@ -46,3 +46,59 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     return NextResponse.json(errorResponse("Terjadi kesalahan server", 500), { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const authHeader = req.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json(errorResponse("Unauthorized", 401), { status: 401 });
+    }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+
+    if (decoded.role !== "admin") {
+      return NextResponse.json(errorResponse("Akses ditolak. Hanya admin.", 403), { status: 403 });
+    }
+
+    const userId = parseInt(params.id, 10);
+    const body = await req.json();
+
+    const { name, email, occupation, role } = body;
+
+    if (!name || !email || !role) {
+      return NextResponse.json(errorResponse("Data tidak lengkap", 400), { status: 400 });
+    }
+
+    const existingUser = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!existingUser) {
+      return NextResponse.json(errorResponse("User tidak ditemukan", 404), { status: 404 });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        name,
+        email,
+        occupation,
+        role,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        occupation: true,
+        created_at: true,
+      },
+    });
+
+    return NextResponse.json(successResponse("User berhasil diperbarui oleh admin", updatedUser));
+  } catch (error) {
+    console.error("PUT /admin/users/[id] error:", error);
+    return NextResponse.json(errorResponse("Terjadi kesalahan server", 500), { status: 500 });
+  }
+}
