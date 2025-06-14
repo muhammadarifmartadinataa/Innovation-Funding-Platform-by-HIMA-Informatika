@@ -6,7 +6,7 @@ export default function TestimonialsSection() {
       name: "Risma Cihuy",
       role: "Pemilik Campaign",
       message:
-        "Platform ini sangat membantu saya dalam menggalang dana untuk biaya pengobatan anak saya. Terima kasih!",
+        "Platform ini sangat membantu saya dalam menggalang dana untuk saya beli Iphone 16. Terima kasih!",
       image: "/testimoni1.jpg",
     },
     {

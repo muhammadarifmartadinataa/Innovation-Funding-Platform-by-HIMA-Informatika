@@ -4,7 +4,7 @@ import Hero from '@/components/Hero'
 import CampaignCard from '@/components/CampaignSection'
 import Stats from '@/components/StatsSection'
 import TestimonialsSection from "@/components/TestimonialsSection"
-
+import JoinUsSection from "@/components/JoinUsSection"
 export default function HomePage() {
   // Dummy data
   const campaigns = [
@@ -49,6 +49,7 @@ export default function HomePage() {
 
       <Stats />
       <TestimonialsSection />
+      {/* <JoinUsSection /> */}
 
     </main>
   )
