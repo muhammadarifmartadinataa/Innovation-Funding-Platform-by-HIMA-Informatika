@@ -51,4 +51,8 @@ export default function CampaignList() {
     }
     fetchCampaigns();
   }, []);
+
+    if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;
+
 }
