@@ -3,6 +3,7 @@
 import Hero from '@/components/Hero'
 import CampaignCard from '@/components/CampaignSection'
 import Stats from '@/components/StatsSection'
+import TestimonialsSection from "@/components/TestimonialsSection"
 
 export default function HomePage() {
   // Dummy data
@@ -47,6 +48,7 @@ export default function HomePage() {
       </section>
 
       <Stats />
+      <TestimonialsSection />
 
     </main>
   )
