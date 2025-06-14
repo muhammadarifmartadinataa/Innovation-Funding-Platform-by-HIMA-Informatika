@@ -1,9 +1,8 @@
 'use client'
 
 import Hero from '@/components/Hero'
-import CampaignCard from '@/components/CampaignCard'
-import Stats from '@/components/Stats'
-import Footer from '@/components/Footer'
+import CampaignCard from '@/components/CampaignSection'
+import Stats from '@/components/StatsSection'
 
 export default function HomePage() {
   // Dummy data
@@ -39,7 +38,7 @@ export default function HomePage() {
       <Hero />
 
       <section className="py-16 px-4 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">Campaign Unggulan</h2>
+        <h1 className="text-3xl font-bold text-center text-red-800 mb-10">Campaign Unggulan</h1>
         <div className="grid md:grid-cols-3 gap-8">
           {campaigns.map((campaign) => (
             <CampaignCard key={campaign.id} campaign={campaign} />
@@ -49,7 +48,6 @@ export default function HomePage() {
 
       <Stats />
 
-      <Footer />
     </main>
   )
 }
