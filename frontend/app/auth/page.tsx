@@ -17,6 +17,8 @@ export default function AuthPage() {
         e.preventDefault()
         setError('')
 
+        console.log("API URL:", process.env.NEXT_PUBLIC_API_URL)
+
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
                 method: 'POST',
@@ -79,7 +81,7 @@ export default function AuthPage() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                             />
                             <input
                                 type="text"
@@ -87,7 +89,7 @@ export default function AuthPage() {
                                 value={occupation}
                                 onChange={(e) => setOccupation(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                             />
                         </>
                     )}
@@ -98,7 +100,7 @@ export default function AuthPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900"
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                     />
                     <input
                         type="password"
@@ -106,7 +108,7 @@ export default function AuthPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900"
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                     />
 
                     <button
@@ -117,7 +119,7 @@ export default function AuthPage() {
                     </button>
                 </form>
 
-                <p className="mt-4 text-center text-sm text-gray-600">
+                <p className="mt-4 text-center text-sm text-gray-800">
                     {isRegistering ? 'Sudah punya akun?' : 'Belum punya akun?'}{' '}
                     <button
                         onClick={() => setIsRegistering(!isRegistering)}
