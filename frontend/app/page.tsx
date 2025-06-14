@@ -1,7 +1,7 @@
 'use client'
 
 import Hero from '@/components/Hero'
-import CampaignCard from '@/components/CampaignSection'
+import CampaignSection from '@/components/CampaignSection'
 import Stats from '@/components/StatsSection'
 import TestimonialsSection from "@/components/TestimonialsSection"
 import JoinUsSection from "@/components/JoinUsSection"
@@ -38,18 +38,19 @@ export default function HomePage() {
     <main className="min-h-screen bg-white">
       <Hero />
 
-      <section className="py-16 px-4 max-w-6xl mx-auto">
+      {/* <section className="py-16 px-4 max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold text-center text-red-800 mb-10">Campaign Unggulan</h1>
         <div className="grid md:grid-cols-3 gap-8">
           {campaigns.map((campaign) => (
             <CampaignCard key={campaign.id} campaign={campaign} />
           ))}
         </div>
-      </section>
+      </section> */}
 
+      <CampaignSection />
       <Stats />
       <TestimonialsSection />
-      {/* <JoinUsSection /> */}
+      <JoinUsSection />
 
     </main>
   )
