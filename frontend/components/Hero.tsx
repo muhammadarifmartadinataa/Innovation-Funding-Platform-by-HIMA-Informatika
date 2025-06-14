@@ -6,14 +6,14 @@ export default function Hero() {
             {/* Logo dan Judul di Kiri Atas */}
             <div className="absolute top-6 left-6 flex items-center space-x-3">
                 <img src="/hero.png" alt="Logo HIMA" className="h-10 w-auto object-contain rounded-2xl" />
-                <span className="text-sm md:text-base font-semibold">
+                <h1 className="font-semibold">
                     Innovation Funding Platform by HIMA Informatika
-                </span>
+                </h1>
             </div>
 
             <h3 className="text-4xl md:text-6xl font-bold mb-6">
-                Dukung Kampanye dan Wujudkan Perubahan Bersama
-                HIMA INFORMATIKA
+                Dukung Kampanye dan Wujudkan Perubahan<br className="mb-6"/>
+                Bersama HIMA INFORMATIKA
             </h3>
             <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
                 Bersama kita bisa membantu mewujudkan ide-ide besar melalui donasi dan dukungan nyata.
