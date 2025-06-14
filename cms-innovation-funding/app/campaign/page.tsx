@@ -62,6 +62,19 @@ export default function CampaignList() {
       <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Campaign Table</h1>
       <div className="overflow-auto rounded-lg shadow">
         <table className="w-full text-sm text-center text-gray-600">
+
+                      <thead className="text-xs text-gray-500 uppercase bg-gray-100">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left">Campaign</th>
+              <th scope="col" className="px-6 py-3">Description</th>
+              <th scope="col" className="px-6 py-3">Goal</th>
+              <th scope="col" className="px-6 py-3">Current</th>
+              <th scope="col" className="px-6 py-3">Backers</th>
+              <th scope="col" className="px-6 py-3">Slug</th>
+              <th scope="col" className="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+
 )
 
 }
