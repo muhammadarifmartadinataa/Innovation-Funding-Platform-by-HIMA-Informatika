@@ -27,3 +27,9 @@ interface ApiResponse {
     totalCampaigns: number;
   };
 }
+
+export default function CampaignList() {
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+}
