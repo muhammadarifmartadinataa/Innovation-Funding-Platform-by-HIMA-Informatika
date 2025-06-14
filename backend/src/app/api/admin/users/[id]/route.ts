@@ -64,28 +64,27 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const userId = parseInt(params.id, 10);
     const body = await req.json();
 
-    const { name, email, occupation, role } = body;
-
-    if (!name || !email || !role) {
-      return NextResponse.json(errorResponse("Data tidak lengkap", 400), { status: 400 });
-    }
-
-    const existingUser = await prisma.user.findUnique({
+    // Cek apakah user ada
+    const user = await prisma.user.findUnique({
       where: { id: userId },
     });
 
-    if (!existingUser) {
+    if (!user) {
       return NextResponse.json(errorResponse("User tidak ditemukan", 404), { status: 404 });
     }
 
+    // Siapkan data yang akan diupdate
+    const dataToUpdate: any = {};
+
+    if (body.name) dataToUpdate.name = body.name;
+    if (body.email) dataToUpdate.email = body.email;
+    if (body.occupation) dataToUpdate.occupation = body.occupation;
+    if (body.role) dataToUpdate.role = body.role; // Tidak wajib
+
+    // Update user
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data: {
-        name,
-        email,
-        occupation,
-        role,
-      },
+      data: dataToUpdate,
       select: {
         id: true,
         name: true,
@@ -102,3 +101,4 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json(errorResponse("Terjadi kesalahan server", 500), { status: 500 });
   }
 }
+
