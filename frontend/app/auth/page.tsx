@@ -17,6 +17,8 @@ export default function AuthPage() {
         e.preventDefault()
         setError('')
 
+        console.log("API URL:", process.env.NEXT_PUBLIC_API_URL)
+
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
                 method: 'POST',
@@ -62,9 +64,9 @@ export default function AuthPage() {
     }
 
     return (
-        <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-indigo-600">
+        <main className="flex items-center justify-center min-h-screen bg-red-900">
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                <h1 className="text-3xl font-bold text-center mb-6 text-indigo-700">
+                <h1 className="text-3xl font-bold text-center mb-6 text-red-900">
                     {isRegistering ? 'User Register' : 'Login'}
                 </h1>
 
@@ -79,7 +81,7 @@ export default function AuthPage() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                             />
                             <input
                                 type="text"
@@ -87,7 +89,7 @@ export default function AuthPage() {
                                 value={occupation}
                                 onChange={(e) => setOccupation(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                             />
                         </>
                     )}
@@ -98,7 +100,7 @@ export default function AuthPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                     />
                     <input
                         type="password"
@@ -106,22 +108,22 @@ export default function AuthPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400"
+                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-900 text-gray-800"
                     />
 
                     <button
                         type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition"
+                        className="w-full bg-red-900 text-white py-2 rounded-lg font-semibold hover:bg-red-900 transition"
                     >
                         {isRegistering ? 'Register' : 'Login'}
                     </button>
                 </form>
 
-                <p className="mt-4 text-center text-sm text-gray-600">
+                <p className="mt-4 text-center text-sm text-gray-800">
                     {isRegistering ? 'Sudah punya akun?' : 'Belum punya akun?'}{' '}
                     <button
                         onClick={() => setIsRegistering(!isRegistering)}
-                        className="text-indigo-600 font-semibold hover:underline"
+                        className="text-red-900  font-semibold hover:underline"
                     >
                         {isRegistering ? 'Login di sini' : 'Register di sini'}
                     </button>
