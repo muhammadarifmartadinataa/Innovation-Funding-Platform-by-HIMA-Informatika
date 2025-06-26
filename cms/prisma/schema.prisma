@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int           @id @default(autoincrement())
+  name             String
+  occupation       String
+  email            String        @unique
+  password_hash    String
+  avatar_file_name String?
+  role             String
+  token            String?       @db.Text
+  created_at       DateTime      @default(now())
+  updated_at       DateTime      @updatedAt
+  deleted_at       DateTime?
+
+  campaigns        Campaign[]    @relation("UserCampaigns")
+  transactions     Transaction[] @relation("UserTransactions")
+}
+
+model Campaign {
+  id                Int              @id @default(autoincrement())
+  name              String
+  short_description String
+  description       String
+  goal_amount       Int
+  current_amount    Int
+  perks             String
+  slug              String
+  backer_count      Int
+  user_id           Int
+  created_at        DateTime         @default(now())
+  updated_at        DateTime         @updatedAt
+  deleted_at        DateTime?
+
+  user              User             @relation("UserCampaigns", fields: [user_id], references: [id])
+  campaign_images   CampaignImage[]  @relation("CampaignImages")
+  transactions      Transaction[]    @relation("CampaignTransactions")
+}
+
+model CampaignImage {
+  id          Int      @id @default(autoincrement())
+  file_name   String
+  is_primary  Boolean
+  campaign_id Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  deleted_at  DateTime?
+
+  campaign    Campaign @relation("CampaignImages", fields: [campaign_id], references: [id])
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  amount      Int
+  status      String
+  code        String
+  user_id     Int
+  campaign_id Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  deleted_at  DateTime?
+
+  user        User     @relation("UserTransactions", fields: [user_id], references: [id])
+  campaign    Campaign @relation("CampaignTransactions", fields: [campaign_id], references: [id])
+}
