@@ -63,7 +63,7 @@ export default function HomePage() {
   );
 }
 
-<><><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+<><><><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
 </div>
 
   <div className="bg-white border rounded-xl shadow-sm hover:shadow-md transition p-6">
@@ -77,7 +77,7 @@ export default function HomePage() {
       </div>
     </div>
   </div></>
-  
+
   <div className="bg-white border rounded-xl shadow-sm hover:shadow-md transition p-6">
     <div className="flex items-center gap-4">
       <div className="bg-green-100 p-3 rounded-full">
@@ -89,3 +89,19 @@ export default function HomePage() {
       </div>
     </div>
   </div></>
+
+  <div className="bg-white border rounded-xl shadow-sm hover:shadow-md transition p-6">
+    <div className="flex items-center gap-4">
+      <div className="bg-yellow-100 p-3 rounded-full">
+        <CreditCard className="text-yellow-600 w-6 h-6" />
+      </div>
+      <div>
+        <p className="text-sm text-gray-500">Total Transactions</p>
+        <h2 className="text-2xl font-semibold text-gray-800">85</h2>
+      </div>
+    </div>
+  </div>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  </div></>
+
