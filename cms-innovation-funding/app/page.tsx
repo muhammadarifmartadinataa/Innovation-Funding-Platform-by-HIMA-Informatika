@@ -43,7 +43,7 @@ export default function HomePage() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Total Users</p>
-              <h2 className="text-2xl font-semibold text-gray-800">124</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">24</h2>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function HomePage() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Total Transactions</p>
-              <h2 className="text-2xl font-semibold text-gray-800">85</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">15</h2>
             </div>
           </div>
         </div>
