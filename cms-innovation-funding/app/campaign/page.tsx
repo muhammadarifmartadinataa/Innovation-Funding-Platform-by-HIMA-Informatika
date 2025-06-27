@@ -34,22 +34,33 @@ export default function CampaignList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchCampaigns() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/campaigns`);
-        const data: ApiResponse = await res.json();
-        if (!res.ok) throw new Error(data.message || "Gagal ambil data campaign");
-        setCampaigns(data.data.campaigns);
-      } catch (err: any) {
-        setError(err.message || "Terjadi kesalahan");
-      } finally {
-        setLoading(false);
-      }
+  async function fetchCampaigns() {
+    setLoading(true);
+    setError(null);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("Token tidak ditemukan");
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/campaigns`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data: ApiResponse = await res.json();
+      if (!res.ok) throw new Error(data.message || "Gagal ambil data campaign");
+      setCampaigns(data.data.campaigns);
+    } catch (err: any) {
+      setError(err.message || "Terjadi kesalahan");
+    } finally {
+      setLoading(false);
     }
-    fetchCampaigns();
-  }, []);
+  }
+
+  fetchCampaigns();
+}, []);
+
 
   if (loading) return <p className="text-center mt-20">Loading...</p>;
   if (error) return <p className="text-center mt-20 text-red-500">{error}</p>;

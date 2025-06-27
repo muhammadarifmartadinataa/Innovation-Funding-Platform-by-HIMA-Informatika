@@ -32,9 +32,20 @@ export default function UserList() {
     async function fetchUsers() {
       setLoading(true);
       setError(null);
+
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/users`);
+        const token = localStorage.getItem("token");
+        if (!token) throw new Error("Token tidak ditemukan. Silakan login ulang.");
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/users`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
         const data: ApiResponse = await res.json();
+
         if (!res.ok) throw new Error(data.message || "Gagal ambil data user");
         setUsers(data.data.users);
       } catch (err: any) {
@@ -43,6 +54,7 @@ export default function UserList() {
         setLoading(false);
       }
     }
+
     fetchUsers();
   }, []);
 
