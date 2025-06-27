@@ -2,34 +2,36 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 const protectedRoutes = ["/api/protected", "/api/user", "/api/admin"];
-const allowedOrigins = ["http://localhost:3001"]; // sesuaikan dengan URL frontend
+const allowedOrigins = ["http://localhost:3001"];
 
 export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
   const origin = req.headers.get("origin") || "";
-
-  const isProtected = protectedRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
+  const { pathname } = req.nextUrl;
 
   const setCorsHeaders = (res: NextResponse) => {
     if (allowedOrigins.includes(origin)) {
       res.headers.set("Access-Control-Allow-Origin", origin);
       res.headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-      res.headers.set("Access-Control-Allow-Headers", "Content-Type,Authorization");
+      res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+      res.headers.set("Access-Control-Allow-Credentials", "true");
     }
     return res;
   };
 
-  if (!isProtected) {
-    const res = NextResponse.next();
+  // ✅ Tangani preflight request (OPTIONS) lebih awal
+  if (req.method === "OPTIONS") {
+    const res = new NextResponse(null, { status: 204 });
     return setCorsHeaders(res);
+  }
+
+  const isProtected = protectedRoutes.some((route) => pathname.startsWith(route));
+  if (!isProtected) {
+    return setCorsHeaders(NextResponse.next());
   }
 
   const authHeader = req.headers.get("authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    const res = NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    return setCorsHeaders(res);
+    return setCorsHeaders(NextResponse.json({ message: "Unauthorized" }, { status: 401 }));
   }
 
   const token = authHeader.split(" ")[1];
@@ -37,14 +39,11 @@ export function middleware(req: NextRequest) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
     const res = NextResponse.next();
-
     res.headers.set("x-user-id", String((decoded as any).userId));
     res.headers.set("x-user-role", String((decoded as any).role));
-
     return setCorsHeaders(res);
-  } catch (err) {
-    const res = NextResponse.json({ message: "Token tidak valid" }, { status: 403 });
-    return setCorsHeaders(res);
+  } catch {
+    return setCorsHeaders(NextResponse.json({ message: "Token tidak valid" }, { status: 403 }));
   }
 }
 
